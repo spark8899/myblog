@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lets_ssl &middot; sparkknow blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://sparkknow.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://sparkknow.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://sparkknow.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://sparkknow.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://sparkknow.com/"><h1>sparkknow blog</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://sparkknow.com/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Lets_ssl</h1>
+  <time datetime=2022-01-04T14:51:32&#43;0800 class="post-date">Tue, Jan 4, 2022</time>
+  <h1 id="install-certbot">install certbot</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot-auto
+chmod a+x /usr/local/sbin/certbot-auto
+
+</code></pre></div><h1 id="create-certificate">create certificate</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">certbot-auto certonly --webroot -w /opt/programs/nginx_1.14.0/challenges/ -d sparkknow.com -d www.sparkknow.com -d reg.sparkknow.com
+
+<span style="color:#75715e">#certbot-auto certonly --manual</span>
+</code></pre></div><h1 id="update-certificate">update certificate</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">certbot-auto renew --quiet --renew-hook <span style="color:#e6db74">&#34;/opt/programs/nginx_1.14.0/sbin/nginx -s reload&#34;</span>
+</code></pre></div><h1 id="nginx-config">nginx config</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">    <span style="color:#a6e22e">ssl</span> <span style="color:#a6e22e">on</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">ssl_certificate</span> <span style="color:#e6db74">/etc/</span><span style="color:#a6e22e">letsencrypt</span><span style="color:#e6db74">/live/</span><span style="color:#a6e22e">sparkknow</span>.<span style="color:#a6e22e">com</span>/<span style="color:#a6e22e">fullchain</span>.<span style="color:#a6e22e">pem</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">ssl_certificate_key</span> <span style="color:#e6db74">/etc/</span><span style="color:#a6e22e">letsencrypt</span><span style="color:#e6db74">/live/</span><span style="color:#a6e22e">sparkknow</span>.<span style="color:#a6e22e">com</span>/<span style="color:#a6e22e">privkey</span>.<span style="color:#a6e22e">pem</span>;<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h1 id="add---manual-auth-hook-script">add &ndash;manual-auth-hook script</h1>
+<p>vim /etc/letsencrypt/renewal/sparkknow.com.sh</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">#!<span style="color:#e6db74">/bin/</span><span style="color:#a6e22e">bash</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">echo</span> $<span style="color:#a6e22e">CERTBOT_VALIDATION</span> &gt; <span style="color:#e6db74">/opt/</span><span style="color:#a6e22e">programs</span><span style="color:#e6db74">/nginx_1.14.0/</span><span style="color:#a6e22e">challenges</span>/$<span style="color:#a6e22e">CERTBOT_TOKEN</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>添加执行权限</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod +x /etc/letsencrypt/renewal/sparkknow.com.sh
+</code></pre></div><p>测试是否成功</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">certbot-auto renew --dry-run --manual-auth-hook /etc/letsencrypt/renewal/sparkknow.com.sh
+</code></pre></div><h1 id="add-crontab">add crontab</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#ae81ff">30</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span> * * <span style="color:#a6e22e">root</span> <span style="color:#e6db74">/usr/</span><span style="color:#a6e22e">local</span><span style="color:#e6db74">/sbin/</span><span style="color:#a6e22e">certbot</span>-<span style="color:#a6e22e">auto</span> <span style="color:#a6e22e">renew</span> --<span style="color:#a6e22e">manual</span>-<span style="color:#a6e22e">auth</span>-<span style="color:#a6e22e">hook</span> <span style="color:#e6db74">/etc/</span><span style="color:#a6e22e">letsencrypt</span><span style="color:#e6db74">/renewal/</span><span style="color:#a6e22e">sparkknow</span>.<span style="color:#a6e22e">com</span>.<span style="color:#a6e22e">sh</span> --<span style="color:#a6e22e">renew</span>-<span style="color:#a6e22e">hook</span> <span style="color:#e6db74">&#34;/opt/programs/nginx_1.14.0/sbin/nginx -s reload&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h1 id="other-doc">other doc</h1>
+<ul>
+<li><a href="https://linuxstory.org/deploy-lets-encrypt-ssl-certificate-with-certbot/">certbot-auto教程</a></li>
+<li>[Let’s Encrypt 加密SSL证书并强制启用HTTPS访问]](<a href="https://blog.mimvp.com/article/20468.html">https://blog.mimvp.com/article/20468.html</a>)</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

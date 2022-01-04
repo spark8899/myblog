@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sparkknow blog</title>
-    <link>https://sparkknow.com/</link>
-    <description>Recent content on sparkknow blog</description>
+    <title>Posts on sparkknow blog</title>
+    <link>https://sparkknow.com/post/</link>
+    <description>Recent content in Posts on sparkknow blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 04 Jan 2022 14:51:32 +0800</lastBuildDate><atom:link href="https://sparkknow.com/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>About</title>
-      <link>https://sparkknow.com/about/</link>
-      <pubDate>Tue, 04 Jan 2022 14:52:29 +0800</pubDate>
-      
-      <guid>https://sparkknow.com/about/</guid>
-      <description>一位80后青年。</description>
-    </item>
-    
+    <lastBuildDate>Tue, 04 Jan 2022 14:51:32 +0800</lastBuildDate><atom:link href="https://sparkknow.com/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lets_ssl</title>
       <link>https://sparkknow.com/post/lets_ssl/</link>

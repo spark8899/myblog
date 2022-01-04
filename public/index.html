@@ -51,7 +51,28 @@
 
     <main class="content container">
     <div class="posts">
-
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://sparkknow.com/about/">About</a>
+  </h1>
+  <time datetime="2022-01-04T14:52:29&#43;0800" class="post-date">Tue, Jan 4, 2022</time>
+  一位80后青年。
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://sparkknow.com/post/lets_ssl/">Lets_ssl</a>
+  </h1>
+  <time datetime="2022-01-04T14:51:32&#43;0800" class="post-date">Tue, Jan 4, 2022</time>
+  install certbot wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot-auto chmod a+x /usr/local/sbin/certbot-auto create certificate certbot-auto certonly --webroot -w /opt/programs/nginx_1.14.0/challenges/ -d sparkknow.com -d www.sparkknow.com -d reg.sparkknow.com #certbot-auto certonly --manual update certificate certbot-auto renew --quiet --renew-hook &#34;/opt/programs/nginx_1.14.0/sbin/nginx -s reload&#34; nginx config ssl on; ssl_certificate /etc/letsencrypt/live/sparkknow.com/fullchain.pem; ssl_certificate_key /etc/letsencrypt/live/sparkknow.com/privkey.pem;add &ndash;manual-auth-hook script vim /etc/letsencrypt/renewal/sparkknow.com.sh
+#!/bin/bashecho $CERTBOT_VALIDATION &gt; /opt/programs/nginx_1.14.0/challenges/$CERTBOT_TOKEN添加执行权限
+chmod +x /etc/letsencrypt/renewal/sparkknow.com.sh 测试是否成功
+certbot-auto renew --dry-run --manual-auth-hook /etc/letsencrypt/renewal/sparkknow.com.sh add crontab 30 5 1 * * root /usr/local/sbin/certbot-auto renew --manual-auth-hook /etc/letsencrypt/renewal/sparkknow.
+  
+  <div class="read-more-link">
+    <a href="/post/lets_ssl/">Read More…</a>
+  </div>
+  
+</article>
 </div>
     </main>
 
