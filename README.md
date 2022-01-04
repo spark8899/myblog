@@ -23,5 +23,5 @@ hugo server --theme=hyde --buildDrafts
 
 # create html
 ```
-hugo --theme=hyde --baseUrl="http://sparkknow.com/"
+hugo --theme=hyde --baseUrl="https://sparkknow.com/"
 ```
