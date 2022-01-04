@@ -1,0 +1,4 @@
+baseURL = 'https://sparkknow.com/'
+languageCode = 'zh-cn'
+title = 'sparkknow blog'
+description = 'person blog'
