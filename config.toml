@@ -1,4 +1,12 @@
 baseURL = 'https://sparkknow.com/'
 languageCode = 'zh-cn'
 title = 'sparkknow blog'
-description = 'person blog'
+theme = "hyde"
+
+[Menus]
+  main = [
+      {Name = "Github", URL = "https://github.com/spark8899/"}
+  ]
+
+[params]
+  description = "person blog"
